@@ -177,6 +177,88 @@
             margin-bottom: 10px;
         }
 
+        /* Download Section */
+        .download-section {
+            margin: 30px 0;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .download-section h2 {
+            color: white;
+            text-align: center;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .download-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .download-button {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 12px;
+            padding: 15px 25px;
+            color: white;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+            min-width: 160px;
+            justify-content: center;
+        }
+
+        .download-button.android {
+            background: linear-gradient(45deg, #34A853, #0F9D58);
+        }
+
+        .download-button.ios {
+            background: linear-gradient(45deg, #007AFF, #5856D6);
+        }
+
+        .download-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .download-button:hover::before {
+            left: 100%;
+        }
+
+        .download-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .download-button:active {
+            transform: translateY(-1px);
+        }
+
+        .download-button .icon {
+            font-size: 1.5em;
+        }
+
         .result-container {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 15px;
@@ -262,6 +344,62 @@
             100% { transform: scale(1); }
         }
 
+        /* Instagram Section */
+        .instagram-section {
+            margin-top: 40px;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .instagram-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(45deg, #E1306C, #C13584, #833AB4);
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            font-size: 1.1em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .instagram-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .instagram-link:hover::before {
+            left: 100%;
+        }
+
+        .instagram-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .instagram-link:active {
+            transform: translateY(-1px);
+        }
+
+        .instagram-link .icon {
+            font-size: 1.5em;
+        }
+
         .loading {
             display: inline-block;
             width: 20px;
@@ -296,6 +434,16 @@
             
             .buttons-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .download-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .download-button {
+                width: 100%;
+                max-width: 250px;
             }
         }
     </style>
@@ -340,12 +488,46 @@
             </button>
         </div>
 
+        <div class="download-section">
+            <h2>📱 دانلود برنامه ها</h2>
+            <div class="download-buttons">
+                <a href="https://play.google.com/store/apps/details?id=dev.hexasoftware.v2box" 
+                   class="download-button android" 
+                   target="_blank">
+                    <span class="icon">🤖</span>
+                    <span>V2box - Android</span>
+                </a>
+                <div class="download-buttons">
+                <a href="https://github.com/2dust/v2rayNG/releases/download/1.10.8/v2rayNG_1.10.8_arm64-v8a.apk" 
+                   class="download-button android" 
+                   target="_blank">
+                    <span class="icon">🔗</span>
+                    <span>V2ray - Android</span>
+                </a>
+                <a href="https://apps.apple.com/us/app/v2box-v2ray-client/id6451272673" 
+                   class="download-button ios" 
+                   target="_blank">
+                    <span class="icon">🍎</span>
+                    <span>V2Box - iOS</span>
+                </a>
+            </div>
+        </div>
+
         <div class="result-container" id="result">
             <div class="config-display" id="configDisplay"></div>
             <button class="copy-button" id="copyButton">
                 📋 کپی کردن
             </button>
             <div class="error" id="error"></div>
+        </div>
+
+        <div class="instagram-section">
+            <a href="https://instagram.com/imohammadkamrani" 
+               class="instagram-link" 
+               target="_blank">
+                <span class="icon">📸</span>
+                <span>اینستاگرام من</span>
+            </a>
         </div>
     </div>
 
