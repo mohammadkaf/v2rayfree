@@ -3,361 +3,202 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>V2ray Config - Ultimate Edition</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <title>🌌 V2ray Config Portal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
-        
+        @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700&display=swap');
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #7B2CBF 0%, #3C096C 100%);
+            --secondary-gradient: linear-gradient(45deg, #9D4EDD, #5A189A);
+            --neumorphic-shadow: 8px 8px 16px rgba(0, 0, 0, 0.2), -8px -8px 16px rgba(255, 255, 255, 0.05);
+            --text-color: #ffffff;
+            --accent-color: #E63946;
         }
 
         body {
-            font-family: 'Orbitron', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0a0a0a;
+            font-family: 'Vazirmatn', sans-serif;
+            background: var(--primary-gradient);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
             position: relative;
-            overflow-x: hidden;
-            overflow-y: auto;
-        }
-
-        /* Animated background with multiple layers */
-        .cosmic-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%),
-                linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
-            animation: backgroundShift 20s ease-in-out infinite;
-            z-index: -3;
-        }
-
-        @keyframes backgroundShift {
-            0%, 100% { filter: hue-rotate(0deg) brightness(1); }
-            50% { filter: hue-rotate(60deg) brightness(1.2); }
-        }
-
-        /* Floating particles system */
-        .particles-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -2;
             overflow: hidden;
         }
 
-        .particle {
-            position: absolute;
-            background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff);
-            border-radius: 50%;
-            animation: particleFloat 15s infinite ease-in-out;
-            opacity: 0.7;
-            filter: blur(1px);
-        }
-
-        .particle:nth-child(odd) {
-            background: linear-gradient(45deg, #06ffa5, #00d9ff, #7209b7);
-        }
-
-        @keyframes particleFloat {
-            0% { 
-                transform: translateY(100vh) translateX(0) scale(0);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.7;
-                transform: translateY(90vh) translateX(50px) scale(1);
-            }
-            90% {
-                opacity: 0.7;
-                transform: translateY(-10vh) translateX(-50px) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translateY(-20vh) translateX(0) scale(0);
-            }
-        }
-
-        /* Animated grid background */
-        .grid-background {
+        .background-canvas {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
-            background-size: 50px 50px;
-            animation: gridMove 20s linear infinite;
-            z-index: -1;
+            z-index: 0;
             opacity: 0.3;
         }
 
-        @keyframes gridMove {
-            0% { transform: translate(0, 0); }
-            100% { transform: translate(50px, 50px); }
-        }
-
-        /* Main container with glass morphism */
         .container {
             max-width: 1000px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(25px);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
             border-radius: 25px;
-            border: 2px solid transparent;
-            background-clip: padding-box;
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.5),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2),
-                0 0 60px rgba(0, 255, 255, 0.2);
-            padding: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: var(--neumorphic-shadow);
+            padding: 40px;
             position: relative;
             z-index: 2;
-            animation: containerPulse 4s ease-in-out infinite;
+            animation: floatIn 1s ease-out;
         }
 
-        .container::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff, #06ffa5, #ff006e);
-            background-size: 300% 300%;
-            border-radius: 25px;
-            z-index: -1;
-            animation: borderGradient 3s ease-in-out infinite;
+        @keyframes floatIn {
+            0% { opacity: 0; transform: translateY(100px) scale(0.95); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
         }
 
-        @keyframes borderGradient {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        @keyframes containerPulse {
-            0%, 100% { transform: scale(1) rotateX(0deg); }
-            50% { transform: scale(1.02) rotateX(2deg); }
-        }
-
-        /* Header with holographic effect */
         .header {
             text-align: center;
             margin-bottom: 50px;
             position: relative;
         }
 
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(90deg, transparent, #00ffff, transparent);
-            animation: scanLine 2s ease-in-out infinite;
-        }
-
-        @keyframes scanLine {
-            0%, 100% { width: 0; opacity: 0; }
-            50% { width: 200px; opacity: 1; }
-        }
-
         .header h1 {
-            color: #ffffff;
-            font-size: 3.5em;
-            font-weight: 900;
-            text-shadow: 
-                0 0 10px #00ffff,
-                0 0 20px #00ffff,
-                0 0 30px #00ffff,
-                0 5px 10px rgba(0, 0, 0, 0.5);
-            margin-bottom: 20px;
-            animation: holographicText 3s ease-in-out infinite;
-            background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff, #06ffa5);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5));
+            color: var(--text-color);
+            font-size: 3em;
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+            animation: neonGlow 2s ease-in-out infinite alternate;
+            position: relative;
         }
 
-        @keyframes holographicText {
-            0%, 100% { 
-                background-position: 0% 50%;
-                filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5)) hue-rotate(0deg);
-            }
-            50% { 
-                background-position: 100% 50%;
-                filter: drop-shadow(0 0 20px rgba(255, 0, 255, 0.7)) hue-rotate(90deg);
-            }
+        @keyframes neonGlow {
+            from { text-shadow: 0 0 10px rgba(255, 255, 255, 0.2), 0 0 20px rgba(255, 255, 255, 0.3); }
+            to { text-shadow: 0 0 20px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.5); }
         }
 
         .header p {
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(255, 255, 255, 0.85);
             font-size: 1.2em;
-            margin-bottom: 15px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
-            animation: textGlow 2s ease-in-out infinite alternate;
+            margin: 15px 0;
+            line-height: 1.6;
         }
 
-        @keyframes textGlow {
-            from { text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5), 0 0 10px rgba(0, 255, 255, 0.3); }
-            to { text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 0, 255, 0.5); }
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: var(--secondary-gradient);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--neumorphic-shadow);
+            transition: transform 0.3s ease;
         }
 
-        /* Revolutionary button grid */
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .theme-toggle i {
+            color: var(--text-color);
+            font-size: 1.2em;
+        }
+
         .buttons-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-bottom: 50px;
-            perspective: 1000px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
         }
 
         .config-button {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid transparent;
-            border-radius: 20px;
-            padding: 35px 25px;
-            color: white;
+            background: var(--secondary-gradient);
+            border: none;
+            border-radius: 15px;
+            padding: 30px 20px;
+            color: var(--text-color);
             font-size: 1.2em;
-            font-weight: 700;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(15px);
+            box-shadow: var(--neumorphic-shadow);
+            transition: all 0.3s ease;
             transform-style: preserve-3d;
         }
+
+        .config-button:nth-child(1) { background: linear-gradient(45deg, #F72585, #B5179E); }
+        .config-button:nth-child(2) { background: linear-gradient(45deg, #7209B7, #3C096C); }
+        .config-button:nth-child(3) { background: linear-gradient(45deg, #3F37C9, #4361EE); }
+        .config-button:nth-child(4) { background: linear-gradient(45deg, #4895EF, #4CC9F0); }
 
         .config-button::before {
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, #ff006e, #8338ec, #3a86ff, #06ffa5);
-            background-size: 300% 300%;
-            border-radius: 18px;
-            z-index: -1;
-            animation: buttonGradient 4s ease-in-out infinite;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .config-button::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, transparent 70%);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            z-index: 1;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.6s ease;
         }
 
         .config-button:hover::before {
-            opacity: 1;
-        }
-
-        .config-button:hover::after {
-            width: 300px;
-            height: 300px;
-        }
-
-        @keyframes buttonGradient {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+            left: 100%;
         }
 
         .config-button:hover {
-            transform: translateY(-10px) rotateX(10deg) rotateY(5deg) scale(1.05);
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.4),
-                0 0 60px rgba(0, 255, 255, 0.3),
-                inset 0 1px 0 rgba(255, 255, 255, 0.3);
-            border-color: rgba(0, 255, 255, 0.5);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
         .config-button:active {
-            transform: translateY(-5px) rotateX(5deg) scale(1.02);
+            transform: translateY(0) scale(0.98);
         }
 
         .config-button .icon {
-            display: block;
-            font-size: 3em;
+            font-size: 2.5em;
             margin-bottom: 15px;
-            filter: drop-shadow(0 0 10px currentColor);
-            animation: iconPulse 2s ease-in-out infinite;
-            position: relative;
-            z-index: 2;
+            animation: pulseIcon 2s infinite;
         }
 
-        @keyframes iconPulse {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.1) rotate(5deg); }
+        @keyframes pulseIcon {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
         }
 
-        /* Download section with futuristic design */
         .download-section {
-            margin: 50px 0;
-            padding: 40px;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 25px;
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            backdrop-filter: blur(20px);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .download-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.1), transparent);
-            animation: shimmer 3s ease-in-out infinite;
-            z-index: 0;
-        }
-
-        @keyframes shimmer {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            margin: 40px 0;
+            padding: 35px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            box-shadow: var(--neumorphic-shadow);
         }
 
         .download-section h2 {
-            color: #ffffff;
+            color: var(--text-color);
             text-align: center;
-            font-size: 2.2em;
-            margin-bottom: 30px;
-            font-weight: 700;
-            position: relative;
-            z-index: 1;
-            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            font-size: 2em;
+            margin-bottom: 25px;
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
         }
 
         .download-buttons {
@@ -365,363 +206,201 @@
             gap: 25px;
             justify-content: center;
             flex-wrap: wrap;
-            position: relative;
-            z-index: 1;
         }
 
         .download-button {
-            background: rgba(255, 255, 255, 0.08);
-            border: 2px solid transparent;
+            background: var(--secondary-gradient);
+            border: none;
             border-radius: 15px;
-            padding: 20px 30px;
-            color: white;
+            padding: 18px 30px;
+            color: var(--text-color);
             font-size: 1.1em;
             font-weight: 600;
-            cursor: pointer;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 15px;
-            backdrop-filter: blur(15px);
+            gap: 12px;
+            box-shadow: var(--neumorphic-shadow);
             position: relative;
             overflow: hidden;
-            min-width: 200px;
+            min-width: 180px;
             justify-content: center;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.3s ease;
         }
 
-        .download-button.android::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, #34A853, #0F9D58, #00C851);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: -1;
-        }
-
-        .download-button.ios::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, #007AFF, #5856D6, #AF52DE);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            z-index: -1;
-        }
-
-        .download-button:hover::before {
-            opacity: 1;
-        }
+        .download-button.android { background: linear-gradient(45deg, #06D6A0, #1B9AAA); }
+        .download-button.ios { background: linear-gradient(45deg, #118AB2, #073B4C); }
 
         .download-button:hover {
-            transform: translateY(-8px) scale(1.05);
-            border-color: rgba(0, 255, 255, 0.5);
-            box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.3),
-                0 0 40px rgba(0, 255, 255, 0.2);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .download-button:active {
+            transform: translateY(0) scale(0.98);
         }
 
         .download-button .icon {
             font-size: 1.8em;
-            filter: drop-shadow(0 0 5px currentColor);
         }
 
-        /* Result container with advanced styling */
         .result-container {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 15px;
             padding: 30px;
             margin-top: 30px;
-            border: 2px solid transparent;
-            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(12px);
             display: none;
-            position: relative;
-            overflow: hidden;
+            animation: fadeInUp 0.6s ease-out;
+            box-shadow: var(--neumorphic-shadow);
         }
 
-        .result-container::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #00ffff, #ff00ff, #ffff00, #00ffff);
-            background-size: 300% 300%;
-            border-radius: 20px;
-            z-index: -1;
-            animation: resultBorder 4s ease-in-out infinite;
-        }
-
-        @keyframes resultBorder {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .result-container.show {
             display: block;
-            animation: resultSlideIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        @keyframes resultSlideIn {
-            from {
-                opacity: 0;
-                transform: translateY(50px) rotateX(-20deg);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) rotateX(0deg);
-            }
         }
 
         .config-display {
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
             padding: 25px;
             margin-bottom: 20px;
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            color: #00ff00;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
             font-family: 'Courier New', monospace;
             font-size: 0.95em;
             word-break: break-all;
             max-height: 250px;
             overflow-y: auto;
             scrollbar-width: thin;
-            scrollbar-color: rgba(0, 255, 255, 0.5) rgba(255, 255, 255, 0.1);
-            position: relative;
-        }
-
-        .config-display::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #00ffff, transparent);
-            animation: terminalScan 2s ease-in-out infinite;
-        }
-
-        @keyframes terminalScan {
-            0%, 100% { opacity: 0; transform: translateX(-100%); }
-            50% { opacity: 1; transform: translateX(100%); }
+            scrollbar-color: rgba(255, 255, 255, 0.3) rgba(255, 255, 255, 0.1);
         }
 
         .config-display::-webkit-scrollbar {
-            width: 12px;
+            width: 10px;
         }
 
         .config-display::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.3);
-            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
         }
 
         .config-display::-webkit-scrollbar-thumb {
-            background: linear-gradient(45deg, #00ffff, #ff00ff);
-            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
         }
 
-        /* Copy button with quantum effects */
         .copy-button {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid transparent;
-            border-radius: 15px;
-            padding: 18px 35px;
-            color: white;
-            font-weight: 700;
+            background: linear-gradient(45deg, #52B788, #2D6A4F);
+            border: none;
+            border-radius: 12px;
+            padding: 15px 30px;
+            color: var(--text-color);
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.3s ease;
             font-size: 1.1em;
-            position: relative;
-            overflow: hidden;
             width: 100%;
-            backdrop-filter: blur(15px);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .copy-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, #28a745, #20c997, #17a2b8);
-            background-size: 300% 300%;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            animation: copyGradient 3s ease-in-out infinite;
-        }
-
-        .copy-button:hover::before {
-            opacity: 1;
-        }
-
-        @keyframes copyGradient {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+            box-shadow: var(--neumorphic-shadow);
         }
 
         .copy-button:hover {
-            transform: translateY(-5px) scale(1.02);
-            border-color: rgba(0, 255, 255, 0.5);
-            box-shadow: 
-                0 10px 25px rgba(40, 167, 69, 0.3),
-                0 0 30px rgba(0, 255, 255, 0.2);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
 
         .copy-button.copied {
-            background: linear-gradient(45deg, #6f42c1, #e83e8c, #fd7e14);
-            animation: quantumPulse 0.8s ease-in-out;
-            border-color: rgba(255, 0, 255, 0.7);
+            background: linear-gradient(45deg, #7209B7, #F72585);
+            animation: pulse 0.8s ease-in-out;
         }
 
-        @keyframes quantumPulse {
-            0% { transform: scale(1) rotate(0deg); }
-            25% { transform: scale(1.05) rotate(2deg); }
-            50% { transform: scale(1.1) rotate(-2deg); }
-            75% { transform: scale(1.05) rotate(1deg); }
-            100% { transform: scale(1) rotate(0deg); }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
         }
 
-        /* Instagram section with social media flair */
         .instagram-section {
             margin-top: 50px;
-            padding: 35px;
-            background: rgba(0, 0, 0, 0.2);
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.06);
             border-radius: 20px;
-            border: 1px solid rgba(225, 48, 108, 0.3);
-            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .instagram-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(225, 48, 108, 0.1), transparent);
-            animation: instagramSweep 3s ease-in-out infinite;
-        }
-
-        @keyframes instagramSweep {
-            0% { left: -100%; }
-            100% { left: 100%; }
+            box-shadow: var(--neumorphic-shadow);
         }
 
         .instagram-link {
             display: inline-flex;
             align-items: center;
-            gap: 15px;
-            background: rgba(225, 48, 108, 0.1);
-            color: white;
+            gap: 12px;
+            background: linear-gradient(45deg, #F72585, #7209B7, #3F37C9);
+            color: var(--text-color);
             text-decoration: none;
-            padding: 20px 40px;
+            padding: 18px 35px;
             border-radius: 15px;
             font-size: 1.2em;
-            font-weight: 700;
-            border: 2px solid transparent;
-            backdrop-filter: blur(15px);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .instagram-link::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, #E1306C, #C13584, #833AB4, #405DE6);
-            background-size: 300% 300%;
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            animation: instagramGradient 4s ease-in-out infinite;
-        }
-
-        .instagram-link:hover::before {
-            opacity: 1;
-        }
-
-        @keyframes instagramGradient {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+            font-weight: 600;
+            box-shadow: var(--neumorphic-shadow);
+            transition: all 0.3s ease;
         }
 
         .instagram-link:hover {
-            transform: translateY(-8px) scale(1.05);
-            border-color: rgba(225, 48, 108, 0.7);
-            box-shadow: 
-                0 15px 35px rgba(0, 0, 0, 0.3),
-                0 0 40px rgba(225, 48, 108, 0.3);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
         }
 
         .instagram-link .icon {
             font-size: 1.8em;
-            filter: drop-shadow(0 0 10px currentColor);
         }
 
-        /* Loading animation */
         .loading {
             display: inline-block;
             width: 24px;
             height: 24px;
             border: 3px solid rgba(255, 255, 255, 0.3);
             border-radius: 50%;
-            border-top-color: #00ffff;
-            animation: quantumSpin 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
-            margin-right: 15px;
-            filter: drop-shadow(0 0 10px #00ffff);
+            border-top-color: var(--text-color);
+            animation: spin 0.8s ease-in-out infinite;
+            margin-left: 10px;
         }
 
-        @keyframes quantumSpin {
-            0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.2); }
-            100% { transform: rotate(360deg) scale(1); }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
 
         .error {
-            color: #ff006e;
+            color: var(--accent-color);
             text-align: center;
-            font-weight: 700;
+            font-weight: 600;
             margin-top: 15px;
-            text-shadow: 0 0 10px currentColor;
-            animation: errorPulse 1s ease-in-out infinite;
+            animation: shake 0.5s ease;
         }
 
-        @keyframes errorPulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
         }
 
-        /* Responsive design */
         @media (max-width: 768px) {
             .container {
-                padding: 30px 20px;
-                margin: 10px;
+                padding: 25px;
+                margin: 15px;
             }
-            
+
             .header h1 {
-                font-size: 2.5em;
+                font-size: 2.2em;
             }
-            
+
             .buttons-grid {
                 grid-template-columns: 1fr;
-                gap: 20px;
             }
 
             .download-buttons {
@@ -731,79 +410,239 @@
 
             .download-button {
                 width: 100%;
-                max-width: 280px;
-            }
-
-            .config-button {
-                padding: 25px 20px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .header h1 {
-                font-size: 2em;
-            }
-            
-            .header p {
-                font-size: 1em;
-            }
-            
-            .container {
-                padding: 20px 15px;
+                max-width: 300px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Animated cosmic background -->
-    <div class="cosmic-background"></div>
-    <div class="grid-background"></div>
-    
-    <!-- Floating particles -->
-    <div class="particles-container" id="particles"></div>
+    <canvas class="background-canvas" id="particleCanvas"></canvas>
 
     <div class="container">
+        <button class="theme-toggle" id="themeToggle">
+            <i class="fas fa-moon"></i>
+        </button>
+
         <div class="header">
-            <h1>🌌 V2ray Quantum Config</h1>
-            <p>برای دریافت کانفیگ های v2ray روی دکمه های زیر کلیک کنید</p>
-            <p>کانفیگ هارو کپی و سپس در برنامه های v2rayng,v2box پیست کنید</p>
-            <p>سرورهای اصلی و تست شده هر چند روز یکبار و بقیه سرور ها هر چند ساعت یکبار اپدیت میشن</p>
+            <h1>🌌 پرتال کانفیگ V2ray</h1>
+            <p>برای دریافت جدیدترین کانفیگ‌های V2ray روی دکمه‌های زیر کلیک کنید</p>
+            <p>کانفیگ‌ها را کپی کرده و در برنامه‌های V2rayNG یا V2Box استفاده کنید</p>
+            <p>سرورهای اصلی هر چند روز و سرورهای دیگر هر چند ساعت به‌روزرسانی می‌شوند</p>
         </div>
 
         <div class="buttons-grid">
-            <button class="config-button" data-source="1">
+            <button class="config-button" data-source="1" data-tilt>
                 <span class="icon">⚡</span>
-                <span>سرورهای اصلی و تست شده</span>
+                <span>سرورهای اصلی</span>
             </button>
-            <button class="config-button" data-source="2">
+            <button class="config-button" data-source="2" data-tilt>
                 <span class="icon">🔧</span>
                 <span>سرورهای دوم</span>
             </button>
-            <button class="config-button" data-source="3">
+            <button class="config-button" data-source="3" data-tilt>
                 <span class="icon">🔐</span>
                 <span>سرورهای سوم</span>
             </button>
-            <button class="config-button" data-source="4">
+            <button class="config-button" data-source="4" data-tilt>
                 <span class="icon">🌐</span>
                 <span>سرورهای چهارم</span>
             </button>
         </div>
 
         <div class="download-section">
-            <h2>📱 دانلود برنامه ها</h2>
+            <h2>📱 دانلود اپلیکیشن‌ها</h2>
             <div class="download-buttons">
                 <a href="https://play.google.com/store/apps/details?id=dev.hexasoftware.v2box" 
                    class="download-button android" 
-                   target="_blank">
-                    <i class="fab fa-google-play icon"></i>
-                    <span>V2box - Android</span>
+                   target="_blank" 
+                   data-tilt>
+                    <i class="fa-brands fa-google-play"></i>
+                    <span>V2Box - Android</span>
                 </a>
                 <a href="https://github.com/2dust/v2rayNG/releases/download/1.10.8/v2rayNG_1.10.8_arm64-v8a.apk" 
                    class="download-button android" 
-                   target="_blank">
-                    <i class="fas fa-download icon"></i>
-                    <span>V2rayng - Android</span>
+                   target="_blank" 
+                   data-tilt>
+                    <i class="fa-solid fa-download"></i>
+                    <span>V2rayNG - Android</span>
                 </a>
                 <a href="https://apps.apple.com/us/app/v2box-v2ray-client/id6446814690" 
                    class="download-button ios" 
-                   target="_blank">
+                   target="_blank" 
+                   data-tilt>
+                    <i class="fa-brands fa-apple"></i>
+                    <span>V2Box - iOS</span>
+                </a>
+            </div>
+        </div>
+
+        <div class="result-container" id="result">
+            <div class="config-display" id="configDisplay"></div>
+            <button class="copy-button" id="copyButton">
+                📋 کپی کانفیگ
+            </button>
+            <div class="error" id="error"></div>
+        </div>
+
+        <div class="instagram-section">
+            <a href="https://instagram.com/imohammadkamrani" 
+               class="instagram-link" 
+               target="_blank" 
+               data-tilt>
+                <i class="fab fa-instagram"></i>
+                <span>دنبال کردن در اینستاگرام</span>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // GitHub sources
+        const sources = {
+            1: 'https://raw.githubusercontent.com/liketolivefree/kobabi/main/sub.txt',
+            2: 'https://raw.githubusercontent.com/sinavm/SVM/refs/heads/main/config.txt',
+            3: 'https://raw.githubusercontent.com/Mosifree/-FREE2CONFIG/refs/heads/main/Movaghat',
+            4: 'https://raw.githubusercontent.com/V2RAYCONFIGSPOOL/V2RAY_SUB/refs/heads/main/v2ray_configs.txt'
+        };
+
+        let currentConfig = '';
+
+        // Theme toggle
+        const themeToggle = document.getElementById('themeToggle');
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            themeToggle.innerHTML = document.body.classList.contains('dark-theme') 
+                ? '<i class="fas fa-sun"></i>' 
+                : '<i class="fas fa-moon"></i>';
+        });
+
+        // Particle system
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const particles = [];
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 5 + 2;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random() * 0.5 + 0.3;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+                this.opacity -= 0.001;
+                if (this.opacity < 0) this.opacity = 0.5;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            for (let i = 0; i < 100; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
+
+        // Resize canvas
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Initialize Vanilla Tilt
+        VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
+            max: 15,
+            speed: 400,
+            glare: true,
+            "max-glare": 0.3
+        });
+
+        // Config fetching and copy functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const buttons = document.querySelectorAll('.config-button');
+            const resultContainer = document.getElementById('result');
+            const configDisplay = document.getElementById('configDisplay');
+            const copyButton = document.getElementById('copyButton');
+            const errorDiv = document.getElementById('error');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', async () => {
+                    const source = button.getAttribute('data-source');
+                    const originalHTML = button.innerHTML;
+                    button.innerHTML = '<div class="loading"></div>در حال بارگذاری...';
+                    button.disabled = true;
+                    resultContainer.classList.remove('show');
+                    errorDiv.textContent = '';
+
+                    try {
+                        const response = await fetch(sources[source], { cache: 'no-store' });
+                        if (!response.ok) throw new Error(`خطا در اتصال: ${response.status}`);
+                        const data = await response.text();
+                        currentConfig = data.trim();
+                        configDisplay.textContent = currentConfig;
+                        resultContainer.classList.add('show');
+                        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                    } catch (error) {
+                        errorDiv.textContent = `خطا در دریافت کانفیگ: ${error.message}`;
+                        resultContainer.classList.add('show');
+                    } finally {
+                        button.innerHTML = originalHTML;
+                        button.disabled = false;
+                    }
+                });
+            });
+
+            copyButton.addEventListener('click', () => {
+                if (!currentConfig) return;
+                navigator.clipboard.writeText(currentConfig).then(() => {
+                    const originalText = copyButton.textContent;
+                    copyButton.textContent = '✅ کپی شد!';
+                    copyButton.classList.add('copied');
+                    setTimeout(() => {
+                        copyButton.textContent = originalText;
+                        copyButton.classList.remove('copied');
+                    }, 2000);
+                }).catch(() => {
+                    const textArea = document.createElement('textarea');
+                    textArea.value = currentConfig;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textArea);
+                    const originalText = copyButton.textContent;
+                    copyButton.textContent = '✅ کپی شد!';
+                    copyButton.classList.add('copied');
+                    setTimeout(() => {
+                        copyButton.textContent = originalText;
+                        copyButton.classList.remove('copied');
+                    }, 2000);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
