@@ -3,12 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v2ray Config </title>
+    <title>v2ray Config</title>
     <link
-  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-  rel="stylesheet"
-/>
-    
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        rel="stylesheet"
+    />
     <style>
         * {
             margin: 0;
@@ -28,7 +27,6 @@
             overflow-x: hidden;
         }
 
-        /* Animated background particles */
         .background-particles {
             position: fixed;
             top: 0;
@@ -182,7 +180,6 @@
             margin-bottom: 10px;
         }
 
-        /* Download Section */
         .download-section {
             margin: 30px 0;
             padding: 30px;
@@ -349,7 +346,6 @@
             100% { transform: scale(1); }
         }
 
-        /* Instagram Section */
         .instagram-section {
             margin-top: 40px;
             padding: 25px;
@@ -470,8 +466,8 @@
         <div class="header">
             <h1>🚀 V2ray Config Tool</h1>
             <p>برای دریافت کانفیگ های v2ray روی دکمه های زیر کلیک کنید</p>
-            <p>کانفیگ هارو کپی و سپس در برنامه های v2rayng,v2box    پیست کنید</p>
-            <p>سرورهای اصلی و تست شده هر چند روز یکبار و بقیه سرور ها هر  چند ساعت یکبار اپدیت میشن</p>
+            <p>کانفیگ هارو کپی و سپس در برنامه های v2rayng,v2box پیست کنید</p>
+            <p>سرورهای اصلی و تست شده هر چند روز یکبار و بقیه سرور ها هر چند ساعت یکبار اپدیت میشن</p>
         </div>
 
         <div class="buttons-grid">
@@ -502,7 +498,6 @@
                     <i class="fa-brands fa-google-play"></i>
                     <span>V2box - Android</span>
                 </a>
-                <div class="download-buttons">
                 <a href="https://github.com/2dust/v2rayNG/releases/download/1.10.8/v2rayNG_1.10.8_arm64-v8a.apk" 
                    class="download-button android" 
                    target="_blank">
@@ -537,12 +532,11 @@
     </div>
 
     <script>
-        // GitHub sources - 
         const sources = {
-            1: 'https://raw.githubusercontent.com/liketolivefree/kobabi/main/sub.txt',
-            2: 'https://raw.githubusercontent.com/sinavm/SVM/refs/heads/main/config.txt',
-            3: 'https://raw.githubusercontent.com/Mosifree/-FREE2CONFIG/refs/heads/main/Movaghat',
-            4: 'https://raw.githubusercontent.com/V2RAYCONFIGSPOOL/V2RAY_SUB/refs/heads/main/v2ray_configs.txt'
+            1: 'aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2xpa2V0b2xpdmVmcmVlL2tvYmFiaS9tYWluL3N1Yi50eHQ=',
+            2: 'aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL3NpbmF2bS9TVk0vcmVmcy9oZWFkcy9tYWluL2NvbmZpZy50eHQ=',
+            3: 'aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL01vc2lmcmVlLy1GUkVFMkNPTkZJRy9yZWZzL2hlYWRzL21haW4vTW92YWdoYXQ=',
+            4: 'aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL1YyUkFZQ09ORklHU1BPT0wvVjJSQVlfU1VCL3JlZnMvaGVhZHMvbWFpbi92MnJheV9jb25maWdzLnR4dA=='
         };
 
         let currentConfig = '';
@@ -567,8 +561,9 @@
                     resultContainer.classList.remove('show');
                     errorDiv.textContent = '';
                     
-                    // Fetch config from GitHub
-                    fetch(sources[source])
+                    // Decode Base64 URL and fetch config from GitHub
+                    const decodedUrl = atob(sources[source]);
+                    fetch(decodedUrl)
                         .then(response => {
                             if (!response.ok) {
                                 throw new Error(`HTTP error! status: ${response.status}`);
